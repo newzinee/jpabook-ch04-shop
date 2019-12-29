@@ -26,6 +26,10 @@ public class Order {
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems = new ArrayList<>();
 
+    @OneToOne
+    @JoinColumn(name = "DELIVERY_ID")
+    private Delivery delivery;  // 배송정보
+
     @CreationTimestamp
     private LocalDateTime orderDate;
 
@@ -39,5 +43,10 @@ public class Order {
         }
         this.member = member;
         member.getOrders().add(this);
+    }
+
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
+        delivery.setOrder(this);
     }
 }
